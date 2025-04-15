@@ -167,7 +167,7 @@ plot2 <- plot(comp_W)
 
 #LabelProp
 comp_La <- robinCompare(graph=graph, method1="louvain",
-                        method2="labelProp")
+                        method2="labelProp") # use leiden
 
 
 plot3 <- plot(comp_La)
