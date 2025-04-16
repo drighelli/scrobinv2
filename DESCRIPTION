@@ -20,7 +20,14 @@ Depends:
     robin,
     igraph,
     patchwork,
-    mclust
+    mclust,
+    scater,
+    M3Drop,
+    scran,
+    SC3,
+    SingleCellExperiment,
+    BiocParallel,
+    HDF5Array
 Suggests: 
     knitr,
     rmarkdown,
