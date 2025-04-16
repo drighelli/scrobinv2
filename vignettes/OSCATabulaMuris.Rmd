@@ -35,7 +35,6 @@ library(HDF5Array) # Efficient storage and retrieval of HDF5 files
 
 ```{r}
 # Read data
-tabData <- readRDS("~/Downloads/Subsemple1percentemptyDroplets_doublet_filtered_tabulamuris_mtx.rds")
 datav2 <- system.file("extdata", "Subsemple1percentemptyDroplets_doublet_filtered_tabulamuris_mtx.rds", package = "scrobinv2")
 tabData <- readRDS(datav2)
 
