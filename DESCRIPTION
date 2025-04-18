@@ -27,7 +27,9 @@ Depends:
     SC3,
     SingleCellExperiment,
     BiocParallel,
-    HDF5Array
+    HDF5Array,
+    sparseMatrixStats,
+    DelayedMatrixStats
 Suggests: 
     knitr,
     rmarkdown,
