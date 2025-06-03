@@ -1,5 +1,5 @@
 ---
-title: "RobinSingleCellVignette"
+title: "Seurat Robin Single Cell Vignette"
 author: "Valeria Policastro"
 date: "26/11/2021"
 output: 

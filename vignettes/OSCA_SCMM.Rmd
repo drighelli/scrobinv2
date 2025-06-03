@@ -1,0 +1,289 @@
+---
+title: "OSCA Human Improved Analysis"
+author: "Dario Righelli"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Introduction
+
+This document provides an analysis pipeline for Tabula Muris data using various R packages for single-cell RNA sequencing. Each chunk is annotated with a description of its purpose.
+
+```{r setup, include=FALSE}
+# Setup chunk: Load required libraries and set global options
+knitr::opts_chunk$set(echo = TRUE, cache=TRUE)
+```
+
+## Load Required Libraries
+
+The following libraries are loaded for data quality control, visualization, and analysis:
+
+```{r load-libraries, message=FALSE}
+# Load necessary libraries for single-cell RNA-seq analysis
+library(scater) # Data quality control and visualization
+library(BiocParallel) # Parallel computation
+library(scran) # Data preprocessing and normalization
+library(igraph) # graph handling
+library(ggplot2) # visualization
+library(SingleCellExperiment) # Core class for single-cell data
+library(SingleR) # annotation of cell types
+library(celldex) # reference dataset
+library(bluster) #
+```
+
+## Load Data
+
+For lack of time, we saved the sce in a dedicated object.
+
+```{r, eval=FALSE}
+library(SingleCellMultiModal)
+
+mae <- SingleCellMultiModal::scMultiome(dry.run=FALSE)
+sce <- mae@ExperimentList$rna
+sce
+saveRDS(sce, file="inst/extdata/scescmm.rds")
+```
+
+Additionally, we load an object with already computed PCA/TSNE/UMAP 
+dimentionality reductions.
+
+```{r}
+scev2 <- system.file("extdata", "scescmm.rds", package = "scrobinv2")
+sce <- readRDS(scev2)
+```
+
+## Quality Control
+
+Add quality control metrics to the SingleCellExperiment object:
+
+```{r quality-control}
+# Perform quality control and visualize cell metrics
+sce <- addPerCellQC(sce)
+hist(sce$total, breaks = 50, xlab = "Library Sizes", main = "Distribution of Library Sizes")
+hist(sce$detected, xlab="Number of expressed genes", breaks=50,  ylab="Number of cells")
+
+plotHighestExprs(sce, exprs_values = "counts")
+```
+
+## Filter Genes with Low Expression
+Filter genes based on their average expression levels to exclude non-informative features.
+
+```{r filtering}
+wrkrs <- 15
+# Calculate average counts for each gene and filter out genes with zero average expression
+rowData(sce)$ave.counts <- calculateAverage(sce, exprs_values = "counts", BPPARAM = MulticoreParam(workers = wrkrs))
+to.keep <- rowData(sce)$ave.counts > 0
+sce <- sce[to.keep, ]
+summary(to.keep)  # Summary of genes kept
+dim(sce)          # Dimensions of the filtered SingleCellExperiment object
+
+```
+
+## Normalize Counts
+
+Normalize the data using scran's computeSumFactors and log-normalization for downstream analysis.
+
+```{r normcounts}
+set.seed(1000)
+clusters <- quickCluster(sce, BPPARAM = MulticoreParam(workers = wrkrs))
+sce <- computeSumFactors(sce, cluster = clusters, BPPARAM = MulticoreParam(workers = wrkrs))
+sce <- logNormCounts(sce)
+```
+
+## Variance Modelling and Highly Variable Genes
+
+Model variance to identify highly variable genes for downstream analysis.
+
+```{r hvg}
+# Model variance and identify the top highly variable genes
+set.seed(1001)
+dec <- modelGeneVarByPoisson(sce, BPPARAM = MulticoreParam(workers = wrkrs))
+top <- getTopHVGs(dec, prop = 0.1)
+
+```
+
+## Dimensionality Reduction
+
+Perform PCA, t-SNE, and UMAP for dimensionality reduction to visualize the data in lower-dimensional spaces.
+
+For lack of time for GHA, we loaded an object with already computed PCA/TSNE/UMAP.
+
+Here we report the run code.
+
+```{r dimred, eval=FALSE}
+# Perform PCA and reduce dimensions using t-SNE and UMAP 
+set.seed(1000)
+sce <- denoisePCA(sce, subset.row = top, technical = dec, BPPARAM = MulticoreParam(workers = wrkrs))
+ncol(reducedDim(sce))  # Number of principal components used
+set.seed(1000)
+sce <- runTSNE(sce, dimred = "PCA")
+set.seed(1000)
+sce <- runUMAP(sce, dimred = "PCA")
+```
+
+Showing dim reds as TSNE and UMAP.
+
+```{r dimred-plot}
+plotReducedDim(sce, dimred = "TSNE", colour_by = "celltype")  # Plot TSNE
+plotReducedDim(sce, dimred = "UMAP", colour_by = "celltype")  # Plot UMAP
+```
+
+
+## Graph Construction
+
+Construct a shared nearest neighbor (SNN) graph based on PCA-reduced dimensions.
+
+```{r graph}
+# Build a shared nearest neighbor (SNN) graph
+graph <- buildSNNGraph(sce, k = 25, use.dimred = 'PCA')  # k=25 neighbors
+```
+
+## Cluster Evaluation
+
+Evaluate different clustering methods using robin
+
+```{r}
+# Simplify the graph and evaluate clustering methods
+graph <- igraph::simplify(graph)  # Simplify the graph by removing duplicate edges
+```
+
+# Robin
+
+## Compare all algorithms vs Louvain
+
+We apply the compare procedure to see which is the algorithm that better fits our network.
+
+```{r robin, message=FALSE, warning=FALSE}
+graph <- prepGraph(graph, file.format="igraph")
+graph <- remove.edge.attribute(graph, "weight")
+```
+
+
+```{r robin2, message=FALSE, warning=FALSE, eval=FALSE}
+#Infomap
+comp_I <- robinCompare(graph=graph, method1="louvain",
+                    method2="infomap")
+#Walktrap
+comp_W <- robinCompare(graph=graph, method1="louvain",
+                       method2="walktrap")
+#LabelProp
+comp_La <- robinCompare(graph=graph, method1="louvain",
+                        method2="labelProp") # use leiden
+#Fastgreedy
+comp_F <- robinCompare(graph=graph, method1="louvain",
+                        method2="fastGreedy")
+comp_ll <- robinCompare(graph=graph, method1="louvain",
+                        method2="leiden")
+```
+
+
+```{r robin3, message=FALSE, warning=FALSE}
+path <- system.file("extdata", package = "scrobinv2")
+comp_I <- readRDS(file.path(path, "compI.rds"))
+comp_W <- readRDS(file.path(path, "compW.rds"))
+comp_La <- readRDS(file.path(path, "compLa.rds"))
+comp_F <- readRDS(file.path(path, "compF.rds"))
+comp_ll <- readRDS(file.path(path, "compll.rds"))
+p <- robin::plotMultiCompare(comp_I,comp_W,comp_F,comp_La, comp_ll, title="Robin Compare") 
+p + labs(color = "Model")
+
+```
+
+The lowest curve is the most stable algorithm. 
+Leiden and Louvain are the best algorithms in our example. 
+
+## Statistical significance of communities
+
+Due to the fact that Leiden is one of the best algorithm for our network we apply the robust procedure with the Leiden algorithm to see if the communities detected are statistically significant.
+
+```{r, robinrobust, eval=FALSE}
+graphRandom <- random(graph=graph)
+proc <- robinRobust(graph=graph, graphRandom=graphRandom, method="leiden")
+```
+
+
+```{r robinrobust2}
+proc <- readRDS(file.path(path, "proc.rds"))
+plot(proc, title="Robin Robust Leiden")
+
+robinFDATest(proc)
+
+robinGPTest(proc)
+```
+
+The communities given by Leiden are statistically significant.
+
+## Communities
+
+Here we show a table of the number of cells per each community.
+
+```{r mc}
+mc<-membershipCommunities(graph=graph, method="leiden")
+table(mc)
+```
+
+# Comparing best clustering 
+
+To have a complete overview of the obtained results, we now compare the 
+obtained clusters with annotated celltypes by singleR.
+
+To do this kind of analysis, we used as a refernce the `MonacoImmuneData`
+dataset provided by the celldex bioconductor package.
+
+```{r annotation, message=FALSE}
+monacosce <- MonacoImmuneData()
+
+sr <- SingleR(test=sce, ref=monacosce, labels=monacosce$label.fine)
+
+sce$singleR <- sr$labels
+```
+
+We now store the communities into the sce object and use them in combination with the reference to annotate them.
+
+```{r communities, message=FALSE}
+set.seed(999)
+
+sce$leiden <- as.factor(mc)
+
+src <- SingleR(test=sce, ref=monacosce, labels=monacosce$label.fine, clusters=sce$leiden)
+names(src$labels) <- names(table(sce$leiden))
+
+sce$singleRLeiden <- NA
+for(i in names(src$labels))
+{
+    sce$singleRLeiden[which(sce$leiden == i)] <- src$labels[i]
+}
+```
+
+Here we compare the results obtained between the original cell types and the 
+annotated results using the transformed VI metric.
+
+```{r vinorm}
+## Comparison between ground truth and SingleR labels alone
+igraph::compare(sce$celltype, sce$singleR, method="vi")/log2(dim(sce)[2]) # vi=1.405753 
+## Comparison between ground truth and Clusters computed with Leiden
+igraph::compare(sce$celltype, sce$leiden, method="vi")/log2(dim(sce)[2]) # vi=1.067032
+## Comparison between ground truth and SingleR with labels + clusters
+igraph::compare(sce$celltype, sce$singleRLeiden, method="vi")/log2(dim(sce)[2]) # 0.9767742
+```
+
+Finally, to better investigate the results, we plot a heatmap where we have the 
+original cell types on the y axis and the different annotations on the x axis.
+
+```{r plot-clusters}
+source(system.file("scripts", "functions.R", package = "scrobinv2"))
+df <- as.data.frame(colData(sce))
+ClusterHeatmap(df, "celltype", "leiden")
+ClusterHeatmap(df, "celltype", "singleR")
+ClusterHeatmap(df, "celltype", "singleRclust")
+```
+
+# Session Info
+
+```{r, tidy=TRUE}
+sessionInfo()
+```
+
+
