@@ -27,6 +27,7 @@ get_data_path <- function(fname) {
     if (file.exists(local_path)) {
         return(local_path)
     }
+}
 ```
 
 ## Load Required Libraries

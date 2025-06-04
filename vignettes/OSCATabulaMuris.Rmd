@@ -27,6 +27,7 @@ get_data_path <- function(fname) {
     if (file.exists(local_path)) {
         return(local_path)
     }
+}
 ```
 
 ## Load Required Libraries
@@ -57,7 +58,8 @@ tabData <- readRDS(file=datav2)
 
 
 # Read cell metadata 
-inf <- system.file("extdata", "tabulamuris_cell_info.rds", package = "scrobinv2")
+# inf <- system.file("extdata", "tabulamuris_cell_info.rds", package = "scrobinv2")
+inf <- get_data_path("tabulamuris_cell_info.rds")
 info1 <- readRDS(inf)
 info <- subset(info1, id %in% colnames(tabData))
 dim(info)
