@@ -46,7 +46,7 @@ library(igraph)
 
 ```{r}
 # Read data
-datav2 <- system.file("extdata", "Subsemple1percentemptyDroplets_doublet_filtered_tabulamuris_mtx.rds", package = "scrobinv2")
+datav2 <- system.file("extdata", "filtered_tabulamuris_mtx.rds", package = "scrobinv2")
 tabData <- readRDS(datav2)
 
 
