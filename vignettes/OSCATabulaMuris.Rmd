@@ -22,6 +22,11 @@ This document provides an analysis pipeline for Tabula Muris data using various 
 ```{r setup, include=FALSE}
 # Setup chunk: Load required libraries and set global options
 knitr::opts_chunk$set(echo = TRUE)
+get_data_path <- function(fname) {
+    local_path <- file.path("..", "inst", "extdata", fname)
+    if (file.exists(local_path)) {
+        return(local_path)
+    }
 ```
 
 ## Load Required Libraries
@@ -46,8 +51,9 @@ library(igraph)
 
 ```{r}
 # Read data
-datav2 <- system.file("extdata", "filtered_tabulamuris_mtx.rds", package = "scrobinv2")
-tabData <- readRDS(datav2)
+# datav2 <- system.file("extdata", "filtered_tabulamuris_mtx.rds", package="scrobinv2")
+datav2 <- get_data_path("filtered_tabulamuris_mtx.rds")
+tabData <- readRDS(file=datav2)
 
 
 # Read cell metadata 

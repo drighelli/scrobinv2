@@ -18,6 +18,11 @@ vignette: >
 ```{r, include=FALSE}
 ### SET GENERAL OPTIONS FOR ALL CODE CHUNKS!
 knitr::opts_chunk$set(echo = TRUE, message=FALSE, cache=TRUE, warning=FALSE)
+get_data_path <- function(fname) {
+    local_path <- file.path("..", "inst", "extdata", fname)
+    if (file.exists(local_path)) {
+        return(local_path)
+    }
 ```
 
 # Single cell RNAseq Analysis
@@ -36,8 +41,9 @@ library(robin)
 ## Reading data 
 
 ```{r}
-datav2 <- system.file("extdata", "filtered_tabulamuris_mtx.rds", package = "scrobinv2")
-tabData <- readRDS(datav2)
+# datav2 <- system.file("extdata", "filtered_tabulamuris_mtx.rds", package="scrobinv2")
+datav2 <- get_data_path("filtered_tabulamuris_mtx.rds")
+tabData <- readRDS(file=datav2)
 
 SingleCellData <- CreateSeuratObject(counts = tabData, project = "singleCell", min.cells = round(dim(tabData)[2]*5/100), min.features = 0)
 SingleCellData 

@@ -2,7 +2,6 @@
 title: "3. OSCA Human Improved Analysis"
 author: "Dario Righelli"
 date: "`r Sys.Date()`"
-output: html_document
 output: 
     html_document:
         code_folding: hide
@@ -23,6 +22,11 @@ This document provides an analysis pipeline for Tabula Muris data using various 
 ```{r setup, include=FALSE}
 # Setup chunk: Load required libraries and set global options
 knitr::opts_chunk$set(echo = TRUE, cache=TRUE)
+get_data_path <- function(fname) {
+    local_path <- file.path("..", "inst", "extdata", fname)
+    if (file.exists(local_path)) {
+        return(local_path)
+    }
 ```
 
 ## Load Required Libraries
@@ -52,14 +56,13 @@ library(SingleCellMultiModal)
 mae <- SingleCellMultiModal::scMultiome(dry.run=FALSE)
 sce <- mae@ExperimentList$rna
 sce
-saveRDS(sce, file="inst/extdata/scescmm.rds")
 ```
 
 Additionally, we load an object with already computed PCA/TSNE/UMAP 
 dimentionality reductions.
 
 ```{r}
-scev2 <- system.file("extdata", "scescmm.rds", package = "scrobinv2")
+scev2 <- get_data_path("scescmm.rds")
 sce <- readRDS(scev2)
 ```
 
@@ -282,7 +285,7 @@ Finally, to better investigate the results, we plot a heatmap where we have the
 original cell types on the y axis and the different annotations on the x axis.
 
 ```{r plot-clusters}
-source(system.file("scripts", "functions.R", package = "scrobinv2"))
+# source(system.file("scripts", "functions.R", package = "scrobinv2"))
 df <- as.data.frame(colData(sce))
 ClusterHeatmap(df, "celltype", "leiden")
 ClusterHeatmap(df, "celltype", "singleR")
