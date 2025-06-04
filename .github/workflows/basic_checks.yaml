@@ -18,6 +18,14 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Pull LFS files
+        run: git lfs pull
+
+      - name: List files and sizes
+        run: ls -lh inst/extdata
 
       - name: Query dependencies and update old packages
         run: |
