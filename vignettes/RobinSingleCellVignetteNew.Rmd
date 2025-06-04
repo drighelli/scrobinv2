@@ -1,7 +1,7 @@
 ---
-title: "Seurat Robin Single Cell Vignette"
+title: "1. Seurat Robin Single Cell Vignette"
 author: "Valeria Policastro"
-date: "26/11/2021"
+date: "`r Sys.Date()`"
 output: 
     html_document:
         code_folding: hide
@@ -23,16 +23,18 @@ knitr::opts_chunk$set(echo = TRUE, message=FALSE, cache=TRUE, warning=FALSE)
 # Single cell RNAseq Analysis
 
 ## Package loading 
-```{r}
+
+```{r, message=FALSE}
 
 library(dplyr)
 library(Seurat)
 library(patchwork)
 library(mclust)
-
+library(robin)
 ```
 
 ## Reading data 
+
 ```{r}
 datav2 <- system.file("extdata", "Subsemple1percentemptyDroplets_doublet_filtered_tabulamuris_mtx.rds", package = "scrobinv2")
 tabData <- readRDS(datav2)
@@ -42,6 +44,7 @@ SingleCellData
 ```
 
 ## Data normalization
+
 ```{r}
 
 SingleCellData <- NormalizeData(SingleCellData, normalization.method = "LogNormalize", scale.factor = 10000)
@@ -52,6 +55,7 @@ SingleCellData[["RNA"]]@layers$counts[1:5,1:5]
 ```
 
 ## Feature selection 
+
 ```{r}
 
 SingleCellData <- FindVariableFeatures(object = SingleCellData, selection.method="vst", nfeatures = 2000)
@@ -60,6 +64,7 @@ SingleCellData <- FindVariableFeatures(object = SingleCellData, selection.method
 ```
 
 ## Scale the data 
+
 ```{r}
 SingleCellData <- ScaleData(SingleCellData, do.center = TRUE, do.scale = TRUE)
 SingleCellData[["RNA"]]@layers$scale.data[1:5,1:5]
@@ -67,6 +72,7 @@ SingleCellData[["RNA"]]@layers$scale.data[1:5,1:5]
 
 
 ## Linear dimension reduction
+
 ```{r}
 
 SingleCellData <- RunPCA(SingleCellData, features = VariableFeatures(object = SingleCellData))
@@ -74,6 +80,7 @@ SingleCellData <- RunPCA(SingleCellData, features = VariableFeatures(object = Si
 
 
 ## Graph 
+
 ```{r}
 
 SingleCellData <- FindNeighbors(SingleCellData, dims = 1:50) 
@@ -85,8 +92,9 @@ SingleCellData@graphs$RNA_snn[1:5,1:5] # Adjacency matrix
 # How to use Robin
 
 ## Reading Graph
+
 ```{r}
-library(robin)
+
 
 AdjSNN <- SingleCellData@graphs$RNA_snn
 graphSingleCell <- graph_from_adjacency_matrix(AdjSNN,mode="directed",weighted = TRUE,add.colnames = "NA",diag=FALSE)
@@ -100,7 +108,9 @@ graph
 
 
 ## Compare all algorithms vs Louvain
+
 We apply the compare procedure to see which is the algorithm that better fits our network.
+
 ```{r}
 #Infomap
  comp_I <- robinCompare(graph=graph, method1="louvain",

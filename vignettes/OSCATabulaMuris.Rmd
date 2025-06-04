@@ -1,8 +1,18 @@
 ---
-title: "OSCA Tabula Muris Analysis"
+title: "2. OSCA Tabula Muris Analysis"
 author: "Dario Righelli"
 date: "`r Sys.Date()`"
-output: html_document
+output: 
+    html_document:
+        code_folding: hide
+        toc: true
+        toc_float: true
+editor_options: 
+  chunk_output_type: console
+vignette: >
+  %\VignetteIndexEntry{RobinSingleCellVignette}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 # Introduction
@@ -29,6 +39,7 @@ library(SC3) # Clustering of scRNAseq data
 library(SingleCellExperiment) # Core class for single-cell data
 library(BiocParallel) # Parallel computation
 library(HDF5Array) # Efficient storage and retrieval of HDF5 files
+library(igraph)
 ```
 
 ## Load Data
@@ -88,7 +99,6 @@ dim(sce)          # Dimensions of the filtered SingleCellExperiment object
 Normalize the data using scran's computeSumFactors and log-normalization for downstream analysis.
 ```{r}
 # Compute size factors and normalize counts
-library(scran)
 set.seed(1000)
 clusters <- quickCluster(sce, BPPARAM = MulticoreParam(workers = wrkrs))
 sce <- computeSumFactors(sce, cluster = clusters, BPPARAM = MulticoreParam(workers = wrkrs))
@@ -129,7 +139,6 @@ Construct a shared nearest neighbor (SNN) graph based on PCA-reduced dimensions.
 
 ```{r}
 # Build a shared nearest neighbor (SNN) graph
-library(scran)
 graph <- buildSNNGraph(sce, k = 25, use.dimred = 'PCA')  # k=25 neighbors
 
 ```
@@ -141,7 +150,6 @@ Evaluate different clustering methods using robin
 
 ```{r}
 # Simplify the graph and evaluate clustering methods
-library(igraph)
 graph <- igraph::simplify(graph)  # Simplify the graph by removing duplicate edges
 ```
 

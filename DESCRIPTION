@@ -29,7 +29,12 @@ Depends:
     BiocParallel,
     HDF5Array,
     sparseMatrixStats,
-    DelayedMatrixStats
+    DelayedMatrixStats,
+    reshape2,
+    singleR,
+    ggplot2,
+    celldex,
+    bluster
 Suggests: 
     knitr,
     rmarkdown,
