@@ -27,6 +27,15 @@ get_data_path <- function(fname) {
     if (file.exists(local_path)) {
         return(local_path)
     }
+    local_path <- file.path("..", "inst", "scripts", fname)
+    if (file.exists(local_path)) {
+        return(local_path)
+    }
+    pkg_path <- system.file("extdata", fname, package = "scrobinv2")
+    if (nzchar(pkg_path)) {
+        return(pkg_path)
+    }
+    stop("File not found: ", fname)
 }
 ```
 

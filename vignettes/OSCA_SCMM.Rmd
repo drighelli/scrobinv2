@@ -27,6 +27,15 @@ get_data_path <- function(fname) {
     if (file.exists(local_path)) {
         return(local_path)
     }
+    local_path <- file.path("..", "inst", "scripts", fname)
+    if (file.exists(local_path)) {
+        return(local_path)
+    }
+    pkg_path <- system.file("extdata", fname, package = "scrobinv2")
+    if (nzchar(pkg_path)) {
+        return(pkg_path)
+    }
+    stop("File not found: ", fname)
 }
 ```
 
@@ -287,6 +296,7 @@ original cell types on the y axis and the different annotations on the x axis.
 
 ```{r plot-clusters}
 # source(system.file("scripts", "functions.R", package = "scrobinv2"))
+source(get_data_path("functions.R"))
 df <- as.data.frame(colData(sce))
 ClusterHeatmap(df, "celltype", "leiden")
 ClusterHeatmap(df, "celltype", "singleR")
