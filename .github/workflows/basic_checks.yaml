@@ -16,6 +16,11 @@ jobs:
       CRAN: https://packagemanager.posit.co/cran/__linux__/jammy/latest
 
     steps:
+      - name: Install git-lfs
+        run: |
+          apt-get update && apt-get install -y git-lfs
+          git lfs install
+
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
