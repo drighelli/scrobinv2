@@ -14,7 +14,7 @@ clusterDotPlot <- function(df, class_col, cluster_col) {
 
     # Compute ARI (Adjusted Rand Index)
     ARI <- igraph::compare(df[[cluster_col]], df[[class_col]], method = "adjusted.rand")
-    message(sprintf("ARI = %.2f", round(ARI, 2)))
+    print(sprintf("ARI = %.2f", round(ARI, 2)))
 
     # Contingency table, convert to proportion by row
     tab <- table(df[[class_col]], df[[cluster_col]])

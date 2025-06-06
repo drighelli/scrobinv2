@@ -59,6 +59,7 @@ library(SingleR) # annotation of cell types
 library(celldex) # reference dataset
 library(bluster) #
 library(robin)
+library(reshape2)
 ```
 
 ## Load Data
@@ -287,7 +288,7 @@ for(i in names(src$labels))
 Here we compare the results obtained between the original cell types and the 
 annotated results using the transformed VI metric.
 
-```{r vinorm}
+```{r vinorm, class.source = 'fold-show'}
 ## Comparison between ground truth and SingleR labels alone
 igraph::compare(sce$celltype, sce$singleR, method="vi")/log2(dim(sce)[2]) 
 ## Comparison between ground truth and Clusters computed with Leiden
@@ -299,7 +300,7 @@ igraph::compare(sce$celltype, sce$singleRLeiden, method="vi")/log2(dim(sce)[2])
 Finally, to better investigate the results, we plot a heatmap where we have the 
 original cell types on the y axis and the different annotations on the x axis.
 
-```{r plot-clusters}
+```{r plot-clusters, message=FALSE, class.source = 'fold-show'}
 # source(system.file("scripts", "functions.R", package = "scrobinv2"))
 source(get_data_path("functions.R"))
 df <- as.data.frame(colData(sce))
@@ -307,6 +308,29 @@ clusterDotPlot(df, "celltype", "leiden")
 clusterDotPlot(df, "celltype", "singleR")
 clusterDotPlot(df, "celltype", "singleRLeiden")
 ```
+
+
+
+# Differential Analysis (Marker Gene Identification)
+
+Once we found the best clustering algorithm, we can use the found communities
+for identifying marker genes, to subsequently find cell types.
+
+```{r}
+markers <- findMarkers(sce, groups=sce$leiden)
+marker_genes <- unique(unlist(lapply(markers, function(m) head(rownames(m), 5))))
+plotHeatmap(
+  sce,
+  features = marker_genes,
+  columns_by = "louvain",
+  exprs_values = "logcounts",
+  scale = TRUE,
+  centre = TRUE,
+  zlim = c(-2, 2)
+)
+```
+
+
 
 # Session Info
 

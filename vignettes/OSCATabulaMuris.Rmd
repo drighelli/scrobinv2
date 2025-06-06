@@ -231,8 +231,39 @@ robinGPTest(proc)
 The communities given by Louvain are statistically significant.
 
 ## Communities
+
 ```{r}
 table(membershipCommunities (graph=graph, method="louvain"))
 
 ```
+
+
+# Differential Analysis (Marker Gene Identification)
+
+Once we found the best clustering algorithm, we can use the found communities
+for identifying marker genes, to subsequently find cell types.
+
+```{r}
+mc <- membershipCommunities(graph=graph, method="louvain")
+
+sce$louvain <- mc
+markers <- findMarkers(sce, groups=sce$louvain)
+marker_genes <- unique(unlist(lapply(markers, function(m) head(rownames(m), 5))))
+plotHeatmap(
+  sce,
+  features = marker_genes,
+  columns_by = "louvain",
+  exprs_values = "logcounts",
+  scale = TRUE,
+  centre = TRUE,
+  zlim = c(-2, 2)
+)
+```
+
+# Session Info
+
+```{r, tidy=TRUE}
+sessionInfo()
+```
+
 
