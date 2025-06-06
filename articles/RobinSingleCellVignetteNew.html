@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RobinSingleCellVignette • scrobinv2</title>
+<title>1. Seurat Robin Single Cell Vignette • scrobinv2</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="RobinSingleCellVignette">
+<script src="../pkgdown.js"></script><meta property="og:title" content="1. Seurat Robin Single Cell Vignette">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -49,10 +49,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/OSCATabulaMuris.html">OSCA Tabula Muris Analysis</a>
+      <a href="../articles/OSCA_SCMM.html">3. OSCA Human Improved Analysis</a>
     </li>
     <li>
-      <a href="../articles/RobinSingleCellVignetteNew.html">RobinSingleCellVignette</a>
+      <a href="../articles/OSCATabulaMuris.html">2. OSCA Tabula Muris Analysis</a>
+    </li>
+    <li>
+      <a href="../articles/RobinSingleCellVignetteNew.html">1. Seurat Robin Single Cell Vignette</a>
     </li>
   </ul>
 </li>
@@ -77,11 +80,11 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>RobinSingleCellVignette</h1>
+      <h1 data-toc-skip>1. Seurat Robin Single Cell Vignette</h1>
                         <h4 data-toc-skip class="author">Valeria
 Policastro</h4>
             
-            <h4 data-toc-skip class="date">26/11/2021</h4>
+            <h4 data-toc-skip class="date">2025-06-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/drighelli/scrobinv2/blob/devel/vignettes/RobinSingleCellVignetteNew.Rmd" class="external-link"><code>vignettes/RobinSingleCellVignetteNew.Rmd</code></a></small>
       <div class="hidden name"><code>RobinSingleCellVignetteNew.Rmd</code></div>
@@ -100,16 +103,18 @@ Policastro</h4>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://satijalab.org/seurat" class="external-link">Seurat</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mclust-org.github.io/mclust/" class="external-link">mclust</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mclust-org.github.io/mclust/" class="external-link">mclust</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ValeriaPolicastro/robin" class="external-link">robin</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="reading-data">Reading data<a class="anchor" aria-label="anchor" href="#reading-data"></a>
 </h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">datav2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"Subsemple1percentemptyDroplets_doublet_filtered_tabulamuris_mtx.rds"</span>, package <span class="op">=</span> <span class="st">"scrobinv2"</span><span class="op">)</span></span>
-<span><span class="va">tabData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="va">datav2</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># datav2 &lt;- system.file("extdata", "filtered_tabulamuris_mtx.rds", package="scrobinv2")</span></span>
+<span><span class="va">datav2</span> <span class="op">&lt;-</span> <span class="fu">get_data_path</span><span class="op">(</span><span class="st">"filtered_tabulamuris_mtx.rds"</span><span class="op">)</span></span>
+<span><span class="va">tabData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span>file<span class="op">=</span><span class="va">datav2</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">SingleCellData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/CreateSeuratObject.html" class="external-link">CreateSeuratObject</a></span><span class="op">(</span>counts <span class="op">=</span> <span class="va">tabData</span>, project <span class="op">=</span> <span class="st">"singleCell"</span>, min.cells <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">tabData</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">*</span><span class="fl">5</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span>, min.features <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">SingleCellData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.github.io/seurat-object/reference/CreateSeuratObject.html" class="external-link">CreateSeuratObject</a></span><span class="op">(</span>counts <span class="op">=</span> <span class="va">tabData</span>, project <span class="op">=</span> <span class="st">"singleCell"</span>, min.cells <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">tabData</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">*</span><span class="fl">5</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span>, min.features <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">SingleCellData</span> </span></code></pre></div>
 <pre><code><span><span class="co">## An object of class Seurat </span></span>
 <span><span class="co">## 8694 features across 532 samples within 1 assay </span></span>
@@ -154,7 +159,7 @@ Policastro</h4>
 <h3 id="linear-dimension-reduction">Linear dimension reduction<a class="anchor" aria-label="anchor" href="#linear-dimension-reduction"></a>
 </h3>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">SingleCellData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/RunPCA.html" class="external-link">RunPCA</a></span><span class="op">(</span><span class="va">SingleCellData</span>, features <span class="op">=</span> <span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/VariableFeatures.html" class="external-link">VariableFeatures</a></span><span class="op">(</span>object <span class="op">=</span> <span class="va">SingleCellData</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">SingleCellData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/RunPCA.html" class="external-link">RunPCA</a></span><span class="op">(</span><span class="va">SingleCellData</span>, features <span class="op">=</span> <span class="fu"><a href="https://satijalab.github.io/seurat-object/reference/VariableFeatures.html" class="external-link">VariableFeatures</a></span><span class="op">(</span>object <span class="op">=</span> <span class="va">SingleCellData</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="graph">Graph<a class="anchor" aria-label="anchor" href="#graph"></a>
@@ -191,16 +196,14 @@ Policastro</h4>
 <h3 id="reading-graph">Reading Graph<a class="anchor" aria-label="anchor" href="#reading-graph"></a>
 </h3>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ValeriaPolicastro/robin" class="external-link">robin</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">AdjSNN</span> <span class="op">&lt;-</span> <span class="va">SingleCellData</span><span class="op">@</span><span class="va">graphs</span><span class="op">$</span><span class="va">RNA_snn</span></span>
+<code class="sourceCode R"><span><span class="va">AdjSNN</span> <span class="op">&lt;-</span> <span class="va">SingleCellData</span><span class="op">@</span><span class="va">graphs</span><span class="op">$</span><span class="va">RNA_snn</span></span>
 <span><span class="va">graphSingleCell</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/graph_from_adjacency_matrix.html" class="external-link">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="va">AdjSNN</span>,mode<span class="op">=</span><span class="st">"directed"</span>,weighted <span class="op">=</span> <span class="cn">TRUE</span>,add.colnames <span class="op">=</span> <span class="st">"NA"</span>,diag<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">edge</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/as_edgelist.html" class="external-link">as_edgelist</a></span><span class="op">(</span><span class="va">graphSingleCell</span><span class="op">)</span></span>
 <span><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/graph_from_edgelist.html" class="external-link">graph_from_edgelist</a></span><span class="op">(</span><span class="va">edge</span>, directed<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/simplify.html" class="external-link">simplify</a></span><span class="op">(</span><span class="va">graph</span><span class="op">)</span></span>
 <span><span class="va">graph</span></span></code></pre></div>
-<pre><code><span><span class="co">## IGRAPH e40222d U--- 532 14421 -- </span></span>
-<span><span class="co">## + edges from e40222d:</span></span>
+<pre><code><span><span class="co">## IGRAPH 6d3ff95 U--- 532 14421 -- </span></span>
+<span><span class="co">## + edges from 6d3ff95:</span></span>
 <span><span class="co">##  [1] 1--  2 1--  8 1-- 13 1-- 14 1-- 17 1-- 27 1-- 42 1-- 63 1-- 65 1-- 71</span></span>
 <span><span class="co">## [11] 1-- 79 1-- 95 1-- 99 1--102 1--116 1--131 1--132 1--159 1--161 1--164</span></span>
 <span><span class="co">## [21] 1--172 1--179 1--194 1--197 1--205 1--220 1--258 1--260 1--264 1--267</span></span>
@@ -299,15 +302,15 @@ if the communities detected are statistically significant.</p>
 <span><span class="co">## 1 1 (1-1,1-1) arrange gtable[layout]</span></span>
 <span><span class="co">## 2 2 (1-1,2-2) arrange gtable[layout]</span></span></code></pre>
 <pre><code><span><span class="co">## $adj.pvalue</span></span>
-<span><span class="co">## [1] 0.0017 0.0017 0.0017 0.0017 0.0017 0.0017 0.0017 0.0017 0.0017</span></span>
+<span><span class="co">## [1] 0.1014 0.0041 0.0017 0.0017 0.0017 0.0017 0.0017 0.0020 0.0067</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $pvalues</span></span>
-<span><span class="co">## [1] 0.0017 0.0017 0.0017 0.0017 0.0017 0.0017 0.0017 0.0017 0.0017</span></span></code></pre>
+<span><span class="co">## [1] 0.1014 0.0017 0.0017 0.0017 0.0017 0.0017 0.0017 0.0017 0.0017</span></span></code></pre>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/robin/man/robinGPTest.html" class="external-link">robinGPTest</a></span><span class="op">(</span><span class="va">proc</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  Profile  1 </span></span>
 <span><span class="co">##  Profile  2</span></span></code></pre>
-<pre><code><span><span class="co">## [1] 81.66057</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 86.1001</span></span></code></pre>
 <p>The communities given by Louvain are statistically significant.</p>
 </div>
 </div>
@@ -328,7 +331,7 @@ if the communities detected are statistically significant.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
       </footer>
