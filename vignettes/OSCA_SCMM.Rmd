@@ -289,11 +289,11 @@ annotated results using the transformed VI metric.
 
 ```{r vinorm}
 ## Comparison between ground truth and SingleR labels alone
-igraph::compare(sce$celltype, sce$singleR, method="vi")/log2(dim(sce)[2]) # vi=1.405753 
+igraph::compare(sce$celltype, sce$singleR, method="vi")/log2(dim(sce)[2]) 
 ## Comparison between ground truth and Clusters computed with Leiden
-igraph::compare(sce$celltype, sce$leiden, method="vi")/log2(dim(sce)[2]) # vi=1.067032
+igraph::compare(sce$celltype, sce$leiden, method="vi")/log2(dim(sce)[2])
 ## Comparison between ground truth and SingleR with labels + clusters
-igraph::compare(sce$celltype, sce$singleRLeiden, method="vi")/log2(dim(sce)[2]) # 0.9767742
+igraph::compare(sce$celltype, sce$singleRLeiden, method="vi")/log2(dim(sce)[2])
 ```
 
 Finally, to better investigate the results, we plot a heatmap where we have the 
@@ -303,9 +303,9 @@ original cell types on the y axis and the different annotations on the x axis.
 # source(system.file("scripts", "functions.R", package = "scrobinv2"))
 source(get_data_path("functions.R"))
 df <- as.data.frame(colData(sce))
-ClusterHeatmap(df, "celltype", "leiden")
-ClusterHeatmap(df, "celltype", "singleR")
-ClusterHeatmap(df, "celltype", "singleRLeiden")
+clusterDotPlot(df, "celltype", "leiden")
+clusterDotPlot(df, "celltype", "singleR")
+clusterDotPlot(df, "celltype", "singleRLeiden")
 ```
 
 # Session Info
