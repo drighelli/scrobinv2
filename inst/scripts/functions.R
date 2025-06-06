@@ -14,6 +14,7 @@
 ClusterHeatmap <- function(df, class_col, cluster_col) {
     require(ggplot2)
     require(reshape2)
+    require(mclust)
     suppressMessages(require(mclust, quietly = TRUE))
 
     class_vals <- df[[class_col]]

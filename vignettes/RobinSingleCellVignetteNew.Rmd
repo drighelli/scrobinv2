@@ -31,6 +31,10 @@ get_data_path <- function(fname) {
     if (nzchar(pkg_path)) {
         return(pkg_path)
     }
+    pkg_path <- system.file("scripts", fname, package = "scrobinv2")
+    if (nzchar(pkg_path)) {
+        return(pkg_path)
+    }
     stop("File not found: ", fname)
 }
 ```

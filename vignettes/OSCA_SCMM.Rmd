@@ -35,6 +35,10 @@ get_data_path <- function(fname) {
     if (nzchar(pkg_path)) {
         return(pkg_path)
     }
+    pkg_path <- system.file("scripts", fname, package = "scrobinv2")
+    if (nzchar(pkg_path)) {
+        return(pkg_path)
+    }
     stop("File not found: ", fname)
 }
 ```
@@ -54,6 +58,7 @@ library(SingleCellExperiment) # Core class for single-cell data
 library(SingleR) # annotation of cell types
 library(celldex) # reference dataset
 library(bluster) #
+library(robin)
 ```
 
 ## Load Data
@@ -242,7 +247,7 @@ The communities given by Leiden are statistically significant.
 Here we show a table of the number of cells per each community.
 
 ```{r mc}
-mc<-membershipCommunities(graph=graph, method="leiden")
+mc <- membershipCommunities(graph=graph, method="leiden")
 table(mc)
 ```
 
@@ -300,7 +305,7 @@ source(get_data_path("functions.R"))
 df <- as.data.frame(colData(sce))
 ClusterHeatmap(df, "celltype", "leiden")
 ClusterHeatmap(df, "celltype", "singleR")
-ClusterHeatmap(df, "celltype", "singleRclust")
+ClusterHeatmap(df, "celltype", "singleRLeiden")
 ```
 
 # Session Info
