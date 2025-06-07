@@ -9,10 +9,29 @@ home:
   title: "scrobinv2"
   type: inverse
 
-
 navbar:
   right:
-   - icon: fa-github
-     href: https://github.com/drighelli/scrobinv2
-     
+    - icon: fa-github
+      href: https://github.com/drighelli/scrobinv2
+  structure:
+    left:
+      - home
+      - reference
+      - workflow
+  components:
+    workflow:
+      text: "Workflow"
+      menu:
+        - text: "1. Seurat Robin Single Cell Vignette"
+          href: articles/RobinSingleCellVignetteNew.html
+        - text: "2. OSCA Tabula Muris Analysis"
+          href: articles/OSCATabulaMuris.html
+        - text: "3. OSCA Human Improved Analysis"
+          href: articles/OSCA_SCMM.html
 
+articles:
+  title: "Workflow"
+  contents:
+    - RobinSingleCellVignetteNew
+    - OSCATabulaMuris
+    - OSCA_SCMM

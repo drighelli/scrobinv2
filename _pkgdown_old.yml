@@ -1,0 +1,18 @@
+url: https://drighelli.github.io/scrobinv2
+
+template:
+  params:
+    bootswatch: flatly
+    #ganalytics: UA-99999999-9
+
+home:
+  title: "scrobinv2"
+  type: inverse
+
+
+navbar:
+  right:
+   - icon: fa-github
+     href: https://github.com/drighelli/scrobinv2
+
+
