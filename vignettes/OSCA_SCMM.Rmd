@@ -304,9 +304,9 @@ original cell types on the y axis and the different annotations on the x axis.
 # source(system.file("scripts", "functions.R", package = "scrobinv2"))
 source(get_data_path("functions.R"))
 df <- as.data.frame(colData(sce))
-clusterDotPlot(df, "celltype", "leiden")
-clusterDotPlot(df, "celltype", "singleR")
-clusterDotPlot(df, "celltype", "singleRLeiden")
+clusterDotPlot(df, "leiden", "celltype")
+clusterDotPlot(df, "singleR", "celltype")
+clusterDotPlot(df, "singleRLeiden", "celltype")
 ```
 
 
