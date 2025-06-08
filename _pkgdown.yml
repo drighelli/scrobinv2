@@ -30,8 +30,8 @@ navbar:
           href: articles/OSCA_SCMM.html
 
 articles:
-  title: "Workflow"
-  contents:
-    - RobinSingleCellVignetteNew
-    - OSCATabulaMuris
-    - OSCA_SCMM
+  - title: "Workflow"
+    contents:
+      - RobinSingleCellVignetteNew
+      - OSCATabulaMuris
+      - OSCA_SCMM
