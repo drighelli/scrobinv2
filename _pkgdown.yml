@@ -17,10 +17,10 @@ navbar:
     left:
       - home
       - reference
-      - workflows
+      - workflow
   components:
     workflow:
-      text: "Workflows"
+      text: "Workflow"
       menu:
         - text: "1. Seurat Robin Single Cell Vignette"
           href: articles/RobinSingleCellVignetteNew.html
@@ -30,7 +30,7 @@ navbar:
           href: articles/OSCA_SCMM.html
 
 articles:
-  - title: "Workflows"
+  - title: "Workflow"
     contents:
       - RobinSingleCellVignetteNew
       - OSCATabulaMuris
