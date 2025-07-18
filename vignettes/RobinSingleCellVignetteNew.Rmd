@@ -1,5 +1,5 @@
 ---
-title: "1. Seurat Robin Single Cell Vignette"
+title: "1. Seurat Seurat Tabula Muris Analysis"
 author: "Valeria Policastro"
 date: "`r Sys.Date()`"
 output: 
