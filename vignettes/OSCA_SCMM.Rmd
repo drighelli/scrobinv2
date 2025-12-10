@@ -17,7 +17,7 @@ vignette: >
 
 # Introduction
 
-This document provides an analysis pipeline for Tabula Muris data using various R packages for single-cell RNA sequencing. Each chunk is annotated with a description of its purpose.
+This document provides an analysis pipeline for single cell RNAseq of a multimodal dataset from the SingleCellMultimodl Bioconductor package using various R packages for single-cell RNA sequencing. Each chunk is annotated with a description of its purpose.
 
 ```{r setup, include=FALSE}
 # Setup chunk: Load required libraries and set global options
