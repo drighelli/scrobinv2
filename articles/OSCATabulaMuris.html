@@ -84,7 +84,7 @@
                         <h4 data-toc-skip class="author">Dario
 Righelli</h4>
             
-            <h4 data-toc-skip class="date">2025-09-08</h4>
+            <h4 data-toc-skip class="date">2025-12-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/drighelli/scrobinv2/blob/devel/vignettes/OSCATabulaMuris.Rmd" class="external-link"><code>vignettes/OSCATabulaMuris.Rmd</code></a></small>
       <div class="hidden name"><code>OSCATabulaMuris.Rmd</code></div>
@@ -156,13 +156,13 @@ analysis:</p>
 <code class="sourceCode R"><span><span class="co"># Perform quality control and visualize cell metrics</span></span>
 <span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/addPerCellQCMetrics.html" class="external-link">addPerCellQC</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">sce</span><span class="op">$</span><span class="va">total</span>, breaks <span class="op">=</span> <span class="fl">50</span>, xlab <span class="op">=</span> <span class="st">"Library Sizes"</span>, main <span class="op">=</span> <span class="st">"Distribution of Library Sizes"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="OSCATabulaMuris_files/figure-html/quality-control-1.png" width="700"></p>
+<p><img src="OSCATabulaMuris_files/figure-html/quality-control-1.png" class="r-plt" width="700"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">sce</span><span class="op">$</span><span class="va">detected</span>, xlab<span class="op">=</span><span class="st">"Number of expressed genes"</span>, breaks<span class="op">=</span><span class="fl">50</span>,  ylab<span class="op">=</span><span class="st">"Number of cells"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="OSCATabulaMuris_files/figure-html/quality-control-2.png" width="700"></p>
+<p><img src="OSCATabulaMuris_files/figure-html/quality-control-2.png" class="r-plt" width="700"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotHighestExprs.html" class="external-link">plotHighestExprs</a></span><span class="op">(</span><span class="va">sce</span>, exprs_values <span class="op">=</span> <span class="st">"counts"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="OSCATabulaMuris_files/figure-html/quality-control-3.png" width="700"></p>
+<p><img src="OSCATabulaMuris_files/figure-html/quality-control-3.png" class="r-plt" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="filter-genes-with-low-expression">Filter Genes with Low Expression<a class="anchor" aria-label="anchor" href="#filter-genes-with-low-expression"></a>
@@ -222,7 +222,7 @@ visualize the data in lower-dimensional spaces.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1000000</span><span class="op">)</span></span>
 <span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scater/man/runUMAP.html" class="external-link">runUMAP</a></span><span class="op">(</span><span class="va">sce</span>, dimred <span class="op">=</span> <span class="st">"PCA"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotReducedDim.html" class="external-link">plotReducedDim</a></span><span class="op">(</span><span class="va">sce</span>, dimred <span class="op">=</span> <span class="st">"UMAP"</span>, colour_by <span class="op">=</span> <span class="st">"cell_ontology_class"</span><span class="op">)</span>  <span class="co"># Plot UMAP</span></span></code></pre></div>
-<p><img src="OSCATabulaMuris_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="OSCATabulaMuris_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="graph-construction">Graph Construction<a class="anchor" aria-label="anchor" href="#graph-construction"></a>
@@ -293,7 +293,7 @@ better fits our network.</p>
 <span></span>
 <span></span>
 <span><span class="va">PlotComparisonAllVsInfomap</span> <span class="op">&lt;-</span> <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">plot1</span>,<span class="va">plot2</span>,<span class="va">plot3</span>,<span class="va">plot4</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="OSCATabulaMuris_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<p><img src="OSCATabulaMuris_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" width="700"></p>
 <p>The lowest curve is the most stable algorithm. Louvain and Walktrap
 are the best algorithms in our example.</p>
 </div>
@@ -311,7 +311,7 @@ if the communities detected are statistically significant.</p>
 <span><span class="co">## It can take time ... It depends on the size of the network.</span></span></code></pre>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">proc</span><span class="op">)</span></span></code></pre></div>
-<p><img src="OSCATabulaMuris_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<p><img src="OSCATabulaMuris_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" width="700"></p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/robin/man/robinFDATest.html" class="external-link">robinFDATest</a></span><span class="op">(</span><span class="va">proc</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "First step: basis expansion"</span></span>
@@ -328,21 +328,21 @@ if the communities detected are statistically significant.</p>
 <span><span class="co">## [1] "creating the p-value matrix: end of row 8 out of 9"</span></span>
 <span><span class="co">## [1] "creating the p-value matrix: end of row 9 out of 9"</span></span>
 <span><span class="co">## [1] "Interval Testing Procedure completed"</span></span></code></pre>
-<p><img src="OSCATabulaMuris_files/figure-html/unnamed-chunk-9-2.png" width="700"></p>
+<p><img src="OSCATabulaMuris_files/figure-html/unnamed-chunk-9-2.png" class="r-plt" width="700"></p>
 <pre><code><span><span class="co">## TableGrob (1 x 2) "arrange": 2 grobs</span></span>
 <span><span class="co">##   z     cells    name           grob</span></span>
 <span><span class="co">## 1 1 (1-1,1-1) arrange gtable[layout]</span></span>
 <span><span class="co">## 2 2 (1-1,2-2) arrange gtable[layout]</span></span></code></pre>
 <pre><code><span><span class="co">## $adj.pvalue</span></span>
-<span><span class="co">## [1] 0.0490 0.0016 0.0010 0.0010 0.0010 0.0010 0.0010 0.0010 0.0011</span></span>
+<span><span class="co">## [1] 0.2822 0.0026 0.0010 0.0010 0.0010 0.0010 0.0010 0.0010 0.0013</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $pvalues</span></span>
-<span><span class="co">## [1] 0.049 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001</span></span></code></pre>
+<span><span class="co">## [1] 0.2822 0.0010 0.0010 0.0010 0.0010 0.0010 0.0010 0.0010 0.0010</span></span></code></pre>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/robin/man/robinGPTest.html" class="external-link">robinGPTest</a></span><span class="op">(</span><span class="va">proc</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  Profile  1 </span></span>
 <span><span class="co">##  Profile  2</span></span></code></pre>
-<pre><code><span><span class="co">## [1] 53.53411</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 50.58246</span></span></code></pre>
 <p>The communities given by Louvain are statistically significant.</p>
 </div>
 <div class="section level3">
@@ -376,7 +376,7 @@ types.</p>
 <span>  centre <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="OSCATabulaMuris_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
+<p><img src="OSCATabulaMuris_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
@@ -407,16 +407,16 @@ types.</p>
 <span><span class="co">## [8] base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">##  [1] robin_2.0.0                 igraph_2.1.4               </span></span>
+<span><span class="co">##  [1] robin_2.0.0                 igraph_2.2.1               </span></span>
 <span><span class="co">##  [3] HDF5Array_1.34.0            rhdf5_2.50.2               </span></span>
 <span><span class="co">##  [5] DelayedArray_0.32.0         SparseArray_1.6.2          </span></span>
 <span><span class="co">##  [7] S4Arrays_1.6.0              abind_1.4-8                </span></span>
 <span><span class="co">##  [9] Matrix_1.7-4                BiocParallel_1.40.2        </span></span>
 <span><span class="co">## [11] SC3_1.34.0                  scran_1.34.0               </span></span>
-<span><span class="co">## [13] mclust_6.1.1                Seurat_5.3.0               </span></span>
+<span><span class="co">## [13] mclust_6.1.2                Seurat_5.3.1               </span></span>
 <span><span class="co">## [15] SeuratObject_5.2.0          sp_2.2-0                   </span></span>
 <span><span class="co">## [17] M3Drop_1.32.0               numDeriv_2016.8-1.1        </span></span>
-<span><span class="co">## [19] scater_1.34.1               ggplot2_3.5.2              </span></span>
+<span><span class="co">## [19] scater_1.34.1               ggplot2_4.0.1              </span></span>
 <span><span class="co">## [21] scuttle_1.16.0              SingleCellExperiment_1.28.1</span></span>
 <span><span class="co">## [23] SummarizedExperiment_1.36.0 Biobase_2.66.0             </span></span>
 <span><span class="co">## [25] GenomicRanges_1.58.0        GenomeInfoDb_1.42.3        </span></span>
@@ -425,77 +425,77 @@ types.</p>
 <span><span class="co">## [31] matrixStats_1.5.0          </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
-<span><span class="co">##   [1] gld_2.6.7                nnet_7.3-20              goftest_1.2-3           </span></span>
-<span><span class="co">##   [4] rstan_2.32.7             vctrs_0.6.5              spatstat.random_3.4-1   </span></span>
-<span><span class="co">##   [7] perturbR_0.1.3           digest_0.6.37            png_0.1-8               </span></span>
+<span><span class="co">##   [1] gld_2.6.8                nnet_7.3-20              goftest_1.2-3           </span></span>
+<span><span class="co">##   [4] rstan_2.32.7             vctrs_0.6.5              spatstat.random_3.4-3   </span></span>
+<span><span class="co">##   [7] perturbR_0.1.3           digest_0.6.39            png_0.1-8               </span></span>
 <span><span class="co">##  [10] proxy_0.4-27             Exact_3.3                pcaPP_2.0-5             </span></span>
 <span><span class="co">##  [13] ggrepel_0.9.6            deldir_2.0-4             parallelly_1.45.1       </span></span>
-<span><span class="co">##  [16] hdrcde_3.4               MASS_7.3-65              pkgdown_2.1.3           </span></span>
-<span><span class="co">##  [19] reshape2_1.4.4           httpuv_1.6.16            foreach_1.5.2           </span></span>
-<span><span class="co">##  [22] withr_3.0.2              xfun_0.53                survival_3.8-3          </span></span>
-<span><span class="co">##  [25] doRNG_1.8.6.2            ggbeeswarm_0.7.2         systemfonts_1.2.3       </span></span>
+<span><span class="co">##  [16] hdrcde_3.4               MASS_7.3-65              pkgdown_2.2.0           </span></span>
+<span><span class="co">##  [19] reshape2_1.4.5           httpuv_1.6.16            foreach_1.5.2           </span></span>
+<span><span class="co">##  [22] withr_3.0.2              xfun_0.54                survival_3.8-3          </span></span>
+<span><span class="co">##  [25] doRNG_1.8.6.2            ggbeeswarm_0.7.3         systemfonts_1.3.1       </span></span>
 <span><span class="co">##  [28] ragg_1.5.0               networkD3_0.4.1          zoo_1.8-14              </span></span>
-<span><span class="co">##  [31] gtools_3.9.5             V8_7.0.0                 pbapply_1.7-4           </span></span>
-<span><span class="co">##  [34] DEoptimR_1.1-4           Formula_1.2-5            promises_1.3.3          </span></span>
-<span><span class="co">##  [37] httr_1.4.7               globals_0.18.0           fitdistrplus_1.2-4      </span></span>
-<span><span class="co">##  [40] rhdf5filters_1.18.1      rstudioapi_0.17.1        UCSC.utils_1.2.0        </span></span>
-<span><span class="co">##  [43] miniUI_0.1.2             generics_0.1.4           base64enc_0.1-3         </span></span>
-<span><span class="co">##  [46] curl_7.0.0               zlibbioc_1.52.0          ScaledMatrix_1.14.0     </span></span>
-<span><span class="co">##  [49] polyclip_1.10-7          GenomeInfoDbData_1.2.13  xtable_1.8-4            </span></span>
-<span><span class="co">##  [52] stringr_1.5.1            desc_1.4.3               pracma_2.4.4            </span></span>
-<span><span class="co">##  [55] doParallel_1.0.17        evaluate_1.0.5           hms_1.1.3               </span></span>
-<span><span class="co">##  [58] irlba_2.3.5.1            colorspace_2.1-1         ROCR_1.0-11             </span></span>
-<span><span class="co">##  [61] reticulate_1.43.0        readxl_1.4.5             spatstat.data_3.1-8     </span></span>
-<span><span class="co">##  [64] magrittr_2.0.3           lmtest_0.9-40            readr_2.1.5             </span></span>
-<span><span class="co">##  [67] later_1.4.4              viridis_0.6.5            lattice_0.22-7          </span></span>
-<span><span class="co">##  [70] spatstat.geom_3.5-0      future.apply_1.20.0      robustbase_0.99-6       </span></span>
-<span><span class="co">##  [73] scattermore_1.2          cowplot_1.2.0            RcppAnnoy_0.0.22        </span></span>
-<span><span class="co">##  [76] class_7.3-23             Hmisc_5.2-3              pillar_1.11.0           </span></span>
-<span><span class="co">##  [79] StanHeaders_2.32.10      nlme_3.1-168             iterators_1.0.14        </span></span>
-<span><span class="co">##  [82] caTools_1.18.3           compiler_4.4.2           beachmat_2.22.0         </span></span>
-<span><span class="co">##  [85] RSpectra_0.16-2          stringi_1.8.7            DescTools_0.99.60       </span></span>
-<span><span class="co">##  [88] tensor_1.5.1             plyr_1.8.9               fda_6.3.0               </span></span>
-<span><span class="co">##  [91] crayon_1.5.3             locfit_1.5-9.12          haven_2.5.5             </span></span>
-<span><span class="co">##  [94] rootSolve_1.8.2.4        dplyr_1.1.4              codetools_0.2-20        </span></span>
-<span><span class="co">##  [97] textshaping_1.0.3        BiocSingular_1.22.0      bslib_0.9.0             </span></span>
-<span><span class="co">## [100] QuickJSR_1.8.0           e1071_1.7-16             lmom_3.2                </span></span>
-<span><span class="co">## [103] fds_1.8                  plotly_4.11.0            mime_0.13               </span></span>
-<span><span class="co">## [106] splines_4.4.2            Rcpp_1.1.0               fastDummies_1.7.5       </span></span>
-<span><span class="co">## [109] sparseMatrixStats_1.18.0 cellranger_1.1.0         knitr_1.50              </span></span>
-<span><span class="co">## [112] reldist_1.7-2            WriteXLS_6.8.0           fs_1.6.6                </span></span>
-<span><span class="co">## [115] listenv_0.9.1            checkmate_2.3.3          pkgbuild_1.4.8          </span></span>
-<span><span class="co">## [118] expm_1.0-0               tibble_3.3.0             statmod_1.5.0           </span></span>
-<span><span class="co">## [121] tzdb_0.5.0               pkgconfig_2.0.3          pheatmap_1.0.13         </span></span>
-<span><span class="co">## [124] tools_4.4.2              cachem_1.1.0             viridisLite_0.4.2       </span></span>
-<span><span class="co">## [127] fastmap_1.2.0            rmarkdown_2.29           scales_1.4.0            </span></span>
-<span><span class="co">## [130] grid_4.4.2               ica_1.0-3                sass_0.4.10             </span></span>
-<span><span class="co">## [133] FNN_1.1.4.1              patchwork_1.3.2          dotCall64_1.2           </span></span>
-<span><span class="co">## [136] RANN_2.6.2               rpart_4.1.24             farver_2.1.2            </span></span>
-<span><span class="co">## [139] mgcv_1.9-3               yaml_2.3.10              deSolve_1.40            </span></span>
-<span><span class="co">## [142] foreign_0.8-90           cli_3.6.5                purrr_1.1.0             </span></span>
-<span><span class="co">## [145] lifecycle_1.0.4          askpass_1.2.1            uwot_0.2.3              </span></span>
-<span><span class="co">## [148] rainbow_3.8              mvtnorm_1.3-3            bluster_1.16.0          </span></span>
-<span><span class="co">## [151] backports_1.5.0          gtable_0.3.6             ggridges_0.5.7          </span></span>
-<span><span class="co">## [154] densEstBayes_1.0-2.2     progressr_0.15.1         parallel_4.4.2          </span></span>
-<span><span class="co">## [157] limma_3.62.2             jsonlite_2.0.0           edgeR_4.4.2             </span></span>
-<span><span class="co">## [160] RcppHNSW_0.6.0           bitops_1.0-9             Rtsne_0.17              </span></span>
-<span><span class="co">## [163] spatstat.utils_3.1-5     BiocNeighbors_2.0.1      RcppParallel_5.1.11-1   </span></span>
-<span><span class="co">## [166] bdsmatrix_1.3-7          jquerylib_0.1.4          metapod_1.14.0          </span></span>
-<span><span class="co">## [169] dqrng_0.4.1              loo_2.8.0                spatstat.univar_3.1-4   </span></span>
-<span><span class="co">## [172] rrcov_1.7-7              lazyeval_0.2.2           shiny_1.11.1            </span></span>
-<span><span class="co">## [175] htmltools_0.5.8.1        sctransform_0.4.2        formatR_1.14            </span></span>
-<span><span class="co">## [178] data.tree_1.2.0          glue_1.8.0               spam_2.11-1             </span></span>
-<span><span class="co">## [181] XVector_0.46.0           RCurl_1.98-1.17          qpdf_1.4.1              </span></span>
-<span><span class="co">## [184] ks_1.15.1                gridExtra_2.3            boot_1.3-32             </span></span>
-<span><span class="co">## [187] R6_2.6.1                 tidyr_1.3.1              fdatest_2.1.1           </span></span>
-<span><span class="co">## [190] gplots_3.2.0             forcats_1.0.0            labeling_0.4.3          </span></span>
-<span><span class="co">## [193] cluster_2.1.8.1          rngtools_1.5.2           bbmle_1.0.25.1          </span></span>
-<span><span class="co">## [196] Rhdf5lib_1.28.0          rstantools_2.5.0         tidyselect_1.2.1        </span></span>
-<span><span class="co">## [199] vipor_0.4.7              htmlTable_2.4.3          inline_0.3.21           </span></span>
-<span><span class="co">## [202] future_1.67.0            rsvd_1.0.5               KernSmooth_2.23-26      </span></span>
-<span><span class="co">## [205] data.table_1.17.8        htmlwidgets_1.6.4        RColorBrewer_1.1-3      </span></span>
-<span><span class="co">## [208] rlang_1.1.6              spatstat.sparse_3.1-0    spatstat.explore_3.5-2  </span></span>
-<span><span class="co">## [211] beeswarm_0.4.0</span></span></code></pre>
+<span><span class="co">##  [31] gtools_3.9.5             V8_8.0.1                 pbapply_1.7-4           </span></span>
+<span><span class="co">##  [34] DEoptimR_1.1-4           Formula_1.2-5            promises_1.5.0          </span></span>
+<span><span class="co">##  [37] otel_0.2.0               httr_1.4.7               globals_0.18.0          </span></span>
+<span><span class="co">##  [40] fitdistrplus_1.2-4       rhdf5filters_1.18.1      rstudioapi_0.17.1       </span></span>
+<span><span class="co">##  [43] UCSC.utils_1.2.0         miniUI_0.1.2             generics_0.1.4          </span></span>
+<span><span class="co">##  [46] base64enc_0.1-3          curl_7.0.0               zlibbioc_1.52.0         </span></span>
+<span><span class="co">##  [49] ScaledMatrix_1.14.0      polyclip_1.10-7          GenomeInfoDbData_1.2.13 </span></span>
+<span><span class="co">##  [52] xtable_1.8-4             stringr_1.6.0            desc_1.4.3              </span></span>
+<span><span class="co">##  [55] pracma_2.4.6             doParallel_1.0.17        evaluate_1.0.5          </span></span>
+<span><span class="co">##  [58] hms_1.1.4                irlba_2.3.5.1            colorspace_2.1-2        </span></span>
+<span><span class="co">##  [61] ROCR_1.0-11              reticulate_1.44.1        readxl_1.4.5            </span></span>
+<span><span class="co">##  [64] spatstat.data_3.1-9      magrittr_2.0.4           lmtest_0.9-40           </span></span>
+<span><span class="co">##  [67] readr_2.1.6              later_1.4.4              viridis_0.6.5           </span></span>
+<span><span class="co">##  [70] lattice_0.22-7           spatstat.geom_3.6-1      future.apply_1.20.0     </span></span>
+<span><span class="co">##  [73] robustbase_0.99-6        scattermore_1.2          cowplot_1.2.0           </span></span>
+<span><span class="co">##  [76] RcppAnnoy_0.0.22         class_7.3-23             Hmisc_5.2-4             </span></span>
+<span><span class="co">##  [79] pillar_1.11.1            StanHeaders_2.32.10      nlme_3.1-168            </span></span>
+<span><span class="co">##  [82] iterators_1.0.14         caTools_1.18.3           compiler_4.4.2          </span></span>
+<span><span class="co">##  [85] beachmat_2.22.0          RSpectra_0.16-2          stringi_1.8.7           </span></span>
+<span><span class="co">##  [88] DescTools_0.99.60        tensor_1.5.1             plyr_1.8.9              </span></span>
+<span><span class="co">##  [91] fda_6.3.0                crayon_1.5.3             locfit_1.5-9.12         </span></span>
+<span><span class="co">##  [94] haven_2.5.5              rootSolve_1.8.2.4        dplyr_1.1.4             </span></span>
+<span><span class="co">##  [97] codetools_0.2-20         textshaping_1.0.4        BiocSingular_1.22.0     </span></span>
+<span><span class="co">## [100] bslib_0.9.0              QuickJSR_1.8.1           e1071_1.7-16            </span></span>
+<span><span class="co">## [103] lmom_3.2                 fds_1.8                  plotly_4.11.0           </span></span>
+<span><span class="co">## [106] mime_0.13                splines_4.4.2            Rcpp_1.1.0              </span></span>
+<span><span class="co">## [109] fastDummies_1.7.5        sparseMatrixStats_1.18.0 cellranger_1.1.0        </span></span>
+<span><span class="co">## [112] knitr_1.50               reldist_1.7-2            WriteXLS_6.8.0          </span></span>
+<span><span class="co">## [115] fs_1.6.6                 listenv_0.10.0           checkmate_2.3.3         </span></span>
+<span><span class="co">## [118] pkgbuild_1.4.8           expm_1.0-0               tibble_3.3.0            </span></span>
+<span><span class="co">## [121] statmod_1.5.1            tzdb_0.5.0               pkgconfig_2.0.3         </span></span>
+<span><span class="co">## [124] pheatmap_1.0.13          tools_4.4.2              cachem_1.1.0            </span></span>
+<span><span class="co">## [127] viridisLite_0.4.2        fastmap_1.2.0            rmarkdown_2.30          </span></span>
+<span><span class="co">## [130] scales_1.4.0             grid_4.4.2               ica_1.0-3               </span></span>
+<span><span class="co">## [133] sass_0.4.10              FNN_1.1.4.1              patchwork_1.3.2         </span></span>
+<span><span class="co">## [136] dotCall64_1.2            RANN_2.6.2               rpart_4.1.24            </span></span>
+<span><span class="co">## [139] farver_2.1.2             mgcv_1.9-4               yaml_2.3.11             </span></span>
+<span><span class="co">## [142] deSolve_1.40             foreign_0.8-90           cli_3.6.5               </span></span>
+<span><span class="co">## [145] purrr_1.2.0              lifecycle_1.0.4          askpass_1.2.1           </span></span>
+<span><span class="co">## [148] uwot_0.2.4               rainbow_3.8              mvtnorm_1.3-3           </span></span>
+<span><span class="co">## [151] bluster_1.16.0           backports_1.5.0          gtable_0.3.6            </span></span>
+<span><span class="co">## [154] ggridges_0.5.7           densEstBayes_1.0-2.2     progressr_0.18.0        </span></span>
+<span><span class="co">## [157] parallel_4.4.2           limma_3.62.2             jsonlite_2.0.0          </span></span>
+<span><span class="co">## [160] edgeR_4.4.2              RcppHNSW_0.6.0           bitops_1.0-9            </span></span>
+<span><span class="co">## [163] Rtsne_0.17               spatstat.utils_3.2-0     BiocNeighbors_2.0.1     </span></span>
+<span><span class="co">## [166] RcppParallel_5.1.11-1    bdsmatrix_1.3-7          jquerylib_0.1.4         </span></span>
+<span><span class="co">## [169] metapod_1.14.0           dqrng_0.4.1              loo_2.8.0               </span></span>
+<span><span class="co">## [172] spatstat.univar_3.1-5    rrcov_1.7-7              lazyeval_0.2.2          </span></span>
+<span><span class="co">## [175] shiny_1.12.0             htmltools_0.5.9          sctransform_0.4.2       </span></span>
+<span><span class="co">## [178] formatR_1.14             data.tree_1.2.0          glue_1.8.0              </span></span>
+<span><span class="co">## [181] spam_2.11-1              XVector_0.46.0           RCurl_1.98-1.17         </span></span>
+<span><span class="co">## [184] qpdf_1.4.1               ks_1.15.1                gridExtra_2.3           </span></span>
+<span><span class="co">## [187] boot_1.3-32              R6_2.6.1                 tidyr_1.3.1             </span></span>
+<span><span class="co">## [190] fdatest_2.1.1            gplots_3.3.0             labeling_0.4.3          </span></span>
+<span><span class="co">## [193] forcats_1.0.1            cluster_2.1.8.1          rngtools_1.5.2          </span></span>
+<span><span class="co">## [196] bbmle_1.0.25.1           Rhdf5lib_1.28.0          rstantools_2.5.0        </span></span>
+<span><span class="co">## [199] tidyselect_1.2.1         vipor_0.4.7              htmlTable_2.4.3         </span></span>
+<span><span class="co">## [202] inline_0.3.21            future_1.68.0            rsvd_1.0.5              </span></span>
+<span><span class="co">## [205] KernSmooth_2.23-26       S7_0.2.1                 data.table_1.17.8       </span></span>
+<span><span class="co">## [208] htmlwidgets_1.6.4        RColorBrewer_1.1-3       rlang_1.1.6             </span></span>
+<span><span class="co">## [211] spatstat.sparse_3.1-0    spatstat.explore_3.6-0   beeswarm_0.4.0</span></span></code></pre>
 </div>
   </div>
 
@@ -514,7 +514,7 @@ types.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer>
